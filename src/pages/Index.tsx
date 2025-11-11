@@ -1,18 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { QuizStart } from "@/components/QuizStart";
 import { QuizHeader } from "@/components/QuizHeader";
 import { QuestionCard } from "@/components/QuestionCard";
 import { QuizNavigation } from "@/components/QuizNavigation";
 import { QuizResults } from "@/components/QuizResults";
-import { questions } from "@/data/questions";
+import { allQuestions, Question, getRandomQuestions } from "@/data/questions";
+import { shuffleArray } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [showFeedback, setShowFeedback] = useState(false);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const { toast } = useToast();
+
+  // Função para embaralhar as opções de uma questão
+  const shuffleQuestionOptions = (question: Question): Question => {
+    // Guarda as opções originais e suas respostas corretas
+    const originalOptions = [...question.options];
+    const shuffledOptions = shuffleArray(question.options);
+    
+    // Mapeia as novas posições das respostas corretas
+    const newCorrectAnswers = question.correctAnswers.map(correctIndex => {
+      const originalOption = originalOptions[correctIndex];
+      return shuffledOptions.indexOf(originalOption);
+    });
+
+    return {
+      ...question,
+      options: shuffledOptions,
+      correctAnswers: newCorrectAnswers,
+      originalOptions: originalOptions
+    };
+  };
+
+  const handleStart = (questionCount: number) => {
+    // Pega questões aleatórias e embaralha as opções de cada uma
+    const selectedQuestions = getRandomQuestions(questionCount);
+    const shuffledQuestions = selectedQuestions.map(q => shuffleQuestionOptions(q));
+    
+    setQuestions(shuffledQuestions);
+    setQuizStarted(true);
+    setCurrentQuestionIndex(0);
+    setSelectedAnswers([]);
+    setShowFeedback(false);
+    setScore(0);
+    setQuizCompleted(false);
+  };
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -65,6 +103,8 @@ const Index = () => {
   };
 
   const handleRestart = () => {
+    setQuizStarted(false);
+    setQuestions([]);
     setCurrentQuestionIndex(0);
     setSelectedAnswers([]);
     setShowFeedback(false);
@@ -72,6 +112,12 @@ const Index = () => {
     setQuizCompleted(false);
   };
 
+  // Tela inicial de seleção
+  if (!quizStarted) {
+    return <QuizStart onStart={handleStart} />;
+  }
+
+  // Tela de resultados
   if (quizCompleted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-8 px-4">
@@ -84,6 +130,7 @@ const Index = () => {
     );
   }
 
+  // Tela do questionário
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-8 px-4">
       <div className="max-w-4xl mx-auto">
