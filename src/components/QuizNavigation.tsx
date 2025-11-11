@@ -1,0 +1,71 @@
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+
+interface QuizNavigationProps {
+  currentQuestion: number;
+  totalQuestions: number;
+  selectedAnswers: number[];
+  showFeedback: boolean;
+  onPrevious: () => void;
+  onNext: () => void;
+  onCheck: () => void;
+}
+
+export const QuizNavigation = ({
+  currentQuestion,
+  totalQuestions,
+  selectedAnswers,
+  showFeedback,
+  onPrevious,
+  onNext,
+  onCheck,
+}: QuizNavigationProps) => {
+  const isFirstQuestion = currentQuestion === 1;
+  const isLastQuestion = currentQuestion === totalQuestions;
+  const hasAnswer = selectedAnswers.length > 0;
+
+  return (
+    <div className="flex items-center justify-between gap-4 mt-8">
+      <Button
+        variant="outline"
+        onClick={onPrevious}
+        disabled={isFirstQuestion}
+        className="gap-2"
+      >
+        <ChevronLeft className="w-4 h-4" />
+        Anterior
+      </Button>
+
+      <div className="flex gap-3">
+        {!showFeedback && (
+          <Button
+            onClick={onCheck}
+            disabled={!hasAnswer}
+            className="gap-2 bg-gradient-to-r from-primary to-primary/80"
+          >
+            <Check className="w-4 h-4" />
+            Verificar
+          </Button>
+        )}
+        {showFeedback && !isLastQuestion && (
+          <Button
+            onClick={onNext}
+            className="gap-2 bg-gradient-to-r from-primary to-primary/80"
+          >
+            Próxima
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        )}
+        {showFeedback && isLastQuestion && (
+          <Button
+            onClick={onNext}
+            className="gap-2 bg-gradient-to-r from-success to-success/80"
+          >
+            Ver Resultado
+            <Check className="w-4 h-4" />
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+};
