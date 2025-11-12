@@ -2164,8 +2164,6 @@ export const allQuestions: Question[] = [
     "id": 141,
     "questionEn": "Given the class structure shown below, which types of CIs will be included in a report run against the cmdb_ci_computer table ?    \n-cmdb    \n--cmdb_ci    \n---cmdb_ci_hardware    \n----cmdb_ci_server    \n----cmdb_ci_win_server    \n----cmdb_ci_linux_server    \n----cmdb_ci_unix_server    \n---cmdb_ci_pc_hardware",    "questionPt": "Dada a estrutura da classe mostrada abaixo, quais tipos de CIs estarão incluídos em um relatório executado contra a tabela cmdb_ci_computer?",
     "options": [
-      "Dada a estrutura da classe mostrada abaixo, quais tipos de CIs estarão incluídos em um relatório executado contra a tabela cmdb_ci_computer?",
-  
     
       "Just CIs defined directly in cmdb_ci_computer",
       "CIs defined directly in cmdb_ci_computer and all parent classes",
