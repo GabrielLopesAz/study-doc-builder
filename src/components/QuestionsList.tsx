@@ -49,9 +49,7 @@ export const QuestionsList = ({ questions, onBack }: QuestionsListProps) => {
                         <p className="font-medium text-sm sm:text-base text-foreground leading-relaxed break-words">
                           {question.questionEn}
                         </p>
-                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed italic break-words">
-                          {question.questionPt}
-                        </p>
+                        
                       </div>
                     </div>
                     {question.multipleChoice && (
