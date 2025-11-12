@@ -119,57 +119,57 @@ export const AddQuestionForm = ({ onBack, onSave, existingIds }: AddQuestionForm
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-4 sm:py-6 md:py-8 px-3 sm:px-4">
       <div className="w-full max-w-4xl mx-auto">
-        <div className="mb-6 flex items-center gap-4">
+        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
           <Button
             onClick={onBack}
             variant="outline"
             size="sm"
-            className="gap-2"
+            className="gap-2 flex-shrink-0"
           >
             <ArrowLeft className="w-4 h-4" />
-            Voltar
+            <span className="sm:inline">Voltar</span>
           </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">
+          <div className="min-w-0">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground break-words">
               Adicionar Nova Questão
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Preencha os campos abaixo para criar uma nova questão
             </p>
           </div>
         </div>
 
-        <ScrollArea className="h-[calc(100vh-160px)]">
-          <Card className="p-6">
-            <div className="space-y-6">
+        <ScrollArea className="h-[calc(100vh-140px)] sm:h-[calc(100vh-160px)]">
+          <Card className="p-4 sm:p-5 md:p-6">
+            <div className="space-y-4 sm:space-y-5 md:space-y-6">
               {/* Pergunta em Inglês */}
               <div className="space-y-2">
-                <Label htmlFor="question-en">Pergunta (Inglês) *</Label>
+                <Label htmlFor="question-en" className="text-sm sm:text-base">Pergunta (Inglês) *</Label>
                 <Textarea
                   id="question-en"
                   placeholder="Digite a pergunta em inglês..."
                   value={questionEn}
                   onChange={(e) => setQuestionEn(e.target.value)}
-                  className="min-h-[80px]"
+                  className="min-h-[80px] text-sm sm:text-base"
                 />
               </div>
 
               {/* Pergunta em Português */}
               <div className="space-y-2">
-                <Label htmlFor="question-pt">Pergunta (Português) *</Label>
+                <Label htmlFor="question-pt" className="text-sm sm:text-base">Pergunta (Português) *</Label>
                 <Textarea
                   id="question-pt"
                   placeholder="Digite a pergunta em português..."
                   value={questionPt}
                   onChange={(e) => setQuestionPt(e.target.value)}
-                  className="min-h-[80px]"
+                  className="min-h-[80px] text-sm sm:text-base"
                 />
               </div>
 
               {/* Múltipla Escolha */}
-              <div className="flex items-center gap-2 p-4 rounded-lg bg-muted/50">
+              <div className="flex items-center gap-2 p-3 sm:p-4 rounded-lg bg-muted/50">
                 <Switch
                   id="multiple-choice"
                   checked={multipleChoice}
@@ -180,37 +180,37 @@ export const AddQuestionForm = ({ onBack, onSave, existingIds }: AddQuestionForm
                     }
                   }}
                 />
-                <Label htmlFor="multiple-choice" className="cursor-pointer">
+                <Label htmlFor="multiple-choice" className="cursor-pointer text-xs sm:text-sm">
                   Múltipla Escolha (mais de uma resposta correta)
                 </Label>
               </div>
 
               {/* Opções */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Opções de Resposta *</Label>
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4">
+                  <Label className="text-sm sm:text-base">Opções de Resposta *</Label>
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
                     onClick={addOption}
-                    className="gap-2"
+                    className="gap-2 w-full sm:w-auto text-xs sm:text-sm"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
                     Adicionar Opção
                   </Button>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {options.map((option, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="flex items-center gap-2 pt-2">
+                    <div key={index} className="flex items-start gap-2 sm:gap-3">
+                      <div className="flex items-center gap-1 sm:gap-2 pt-2 flex-shrink-0">
                         <Checkbox
                           checked={correctAnswers.includes(index)}
                           onCheckedChange={() => toggleCorrectAnswer(index)}
                           className="border-2"
                         />
-                        <span className="text-sm font-medium text-muted-foreground">
+                        <span className="text-xs sm:text-sm font-medium text-muted-foreground">
                           {String.fromCharCode(65 + index)}
                         </span>
                       </div>
@@ -218,7 +218,7 @@ export const AddQuestionForm = ({ onBack, onSave, existingIds }: AddQuestionForm
                         placeholder={`Opção ${String.fromCharCode(65 + index)}`}
                         value={option}
                         onChange={(e) => updateOption(index, e.target.value)}
-                        className="flex-1"
+                        className="flex-1 text-sm sm:text-base min-w-0"
                       />
                       {options.length > 2 && (
                         <Button
@@ -226,7 +226,7 @@ export const AddQuestionForm = ({ onBack, onSave, existingIds }: AddQuestionForm
                           variant="ghost"
                           size="icon"
                           onClick={() => removeOption(index)}
-                          className="text-destructive hover:text-destructive"
+                          className="text-destructive hover:text-destructive flex-shrink-0"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -240,13 +240,13 @@ export const AddQuestionForm = ({ onBack, onSave, existingIds }: AddQuestionForm
               </div>
 
               {/* Botão Salvar */}
-              <div className="pt-4 border-t border-border">
+              <div className="pt-3 sm:pt-4 border-t border-border">
                 <Button
                   onClick={handleSave}
-                  className="w-full gap-2 bg-gradient-to-r from-primary to-primary/80"
+                  className="w-full gap-2 bg-gradient-to-r from-primary to-primary/80 text-sm sm:text-base"
                   size="lg"
                 >
-                  <Save className="w-5 h-5" />
+                  <Save className="w-4 h-4 sm:w-5 sm:h-5" />
                   Salvar Questão
                 </Button>
               </div>

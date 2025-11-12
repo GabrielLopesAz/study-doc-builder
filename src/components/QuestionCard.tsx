@@ -41,22 +41,22 @@ export const QuestionCard = ({
   };
 
   return (
-    <Card className="p-8 shadow-[var(--shadow-card)] border-border">
-      <div className="space-y-6">
-        <div className="space-y-3">
-          <div className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center text-sm">
+    <Card className="p-4 sm:p-6 md:p-8 shadow-[var(--shadow-card)] border-border">
+      <div className="space-y-4 md:space-y-6">
+        <div className="space-y-2 md:space-y-3">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <span className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center text-xs sm:text-sm">
               {question.id}
             </span>
-            <div className="flex-1 space-y-2">
-              <h2 className="text-lg font-semibold text-foreground leading-relaxed">
+            <div className="flex-1 space-y-1 sm:space-y-2 min-w-0">
+              <h2 className="text-sm sm:text-base md:text-lg font-semibold text-foreground leading-relaxed break-words">
                 {question.questionEn}
               </h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed break-words">
                 {question.questionPt}
               </p>
               {question.multipleChoice && (
-                <p className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full inline-block">
+                <p className="text-xs font-medium text-primary bg-primary/10 px-2 sm:px-3 py-1 rounded-full inline-block">
                   Escolha {question.correctAnswers.length} opções
                 </p>
               )}
@@ -64,13 +64,13 @@ export const QuestionCard = ({
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2 md:space-y-3">
           {question.multipleChoice ? (
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {question.options.map((option, index) => (
                 <div
                   key={index}
-                  className={`flex items-center space-x-3 p-4 rounded-lg border-2 transition-all ${getOptionStyle(index)} ${
+                  className={`flex items-center space-x-2 sm:space-x-3 p-3 sm:p-4 rounded-lg border-2 transition-all active:scale-[0.99] ${getOptionStyle(index)} ${
                     !showFeedback ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer" : ""
                   }`}
                 >
@@ -79,19 +79,19 @@ export const QuestionCard = ({
                     checked={isSelected(index)}
                     onCheckedChange={(checked) => handleMultipleChoice(index, checked as boolean)}
                     disabled={showFeedback}
-                    className="border-2"
+                    className="border-2 flex-shrink-0"
                   />
                   <Label
                     htmlFor={`option-${index}`}
-                    className="flex-1 text-sm cursor-pointer leading-relaxed"
+                    className="flex-1 text-xs sm:text-sm cursor-pointer leading-relaxed break-words min-w-0"
                   >
                     {option}
                   </Label>
                   {showFeedback && isCorrect(index) && (
-                    <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-success flex-shrink-0" />
                   )}
                   {showFeedback && isSelected(index) && !isCorrect(index) && (
-                    <XCircle className="w-5 h-5 text-destructive flex-shrink-0" />
+                    <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-destructive flex-shrink-0" />
                   )}
                 </div>
               ))}
@@ -102,30 +102,30 @@ export const QuestionCard = ({
               onValueChange={(value) => handleSingleChoice(parseInt(value))}
               disabled={showFeedback}
             >
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {question.options.map((option, index) => (
                   <div
                     key={index}
-                    className={`flex items-center space-x-3 p-4 rounded-lg border-2 transition-all ${getOptionStyle(index)} ${
+                    className={`flex items-center space-x-2 sm:space-x-3 p-3 sm:p-4 rounded-lg border-2 transition-all active:scale-[0.99] ${getOptionStyle(index)} ${
                       !showFeedback ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer" : ""
                     }`}
                   >
                     <RadioGroupItem
                       value={index.toString()}
                       id={`option-${index}`}
-                      className="border-2"
+                      className="border-2 flex-shrink-0"
                     />
                     <Label
                       htmlFor={`option-${index}`}
-                      className="flex-1 text-sm cursor-pointer leading-relaxed"
+                      className="flex-1 text-xs sm:text-sm cursor-pointer leading-relaxed break-words min-w-0"
                     >
                       {option}
                     </Label>
                     {showFeedback && isCorrect(index) && (
-                      <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-success flex-shrink-0" />
                     )}
                     {showFeedback && isSelected(index) && !isCorrect(index) && (
-                      <XCircle className="w-5 h-5 text-destructive flex-shrink-0" />
+                      <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-destructive flex-shrink-0" />
                     )}
                   </div>
                 ))}

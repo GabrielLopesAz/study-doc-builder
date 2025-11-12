@@ -191,7 +191,7 @@ const Index = () => {
 
   // Tela do questionário
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-4 sm:py-6 md:py-8 px-3 sm:px-4 overflow-x-hidden">
       <div className="max-w-4xl mx-auto">
         <QuizHeader
           currentQuestion={currentQuestionIndex + 1}

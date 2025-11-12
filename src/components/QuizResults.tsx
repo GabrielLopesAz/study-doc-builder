@@ -37,72 +37,72 @@ export const QuizResults = ({ score, totalQuestions, onRestart }: QuizResultsPro
   const performance = getPerformanceMessage();
 
   return (
-    <div className="w-full max-w-3xl mx-auto py-12">
-      <Card className="p-8 md:p-12 shadow-[var(--shadow-card)] border-border">
-        <div className="text-center space-y-8">
+    <div className="w-full max-w-3xl mx-auto py-6 sm:py-8 md:py-12">
+      <Card className="p-4 sm:p-6 md:p-8 lg:p-12 shadow-[var(--shadow-card)] border-border">
+        <div className="text-center space-y-4 sm:space-y-6 md:space-y-8">
           <div className="flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 rounded-full blur-2xl opacity-20"></div>
-              <div className="relative bg-gradient-to-br from-primary to-primary/80 p-6 rounded-full">
-                <Trophy className="w-16 h-16 text-primary-foreground" />
+              <div className="relative bg-gradient-to-br from-primary to-primary/80 p-4 sm:p-5 md:p-6 rounded-full">
+                <Trophy className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-primary-foreground" />
               </div>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h2 className={`text-3xl md:text-4xl font-bold ${performance.color}`}>
+          <div className="space-y-1 sm:space-y-2 px-2">
+            <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${performance.color}`}>
               {performance.title}
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
               {performance.message}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-8">
-            <div className="space-y-2">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 py-4 sm:py-6 md:py-8">
+            <div className="space-y-1 sm:space-y-2">
               <div className="flex justify-center">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Target className="w-6 h-6 text-primary" />
+                <div className="bg-primary/10 p-2 sm:p-3 rounded-lg">
+                  <Target className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">Pontuação</p>
-              <p className="text-3xl font-bold text-foreground">{score}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Pontuação</p>
+              <p className="text-2xl sm:text-3xl font-bold text-foreground">{score}</p>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <div className="flex justify-center">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Award className="w-6 h-6 text-primary" />
+                <div className="bg-primary/10 p-2 sm:p-3 rounded-lg">
+                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">Aproveitamento</p>
-              <p className="text-3xl font-bold text-foreground">{percentage}%</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Aproveitamento</p>
+              <p className="text-2xl sm:text-3xl font-bold text-foreground">{percentage}%</p>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <div className="flex justify-center">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Trophy className="w-6 h-6 text-primary" />
+                <div className="bg-primary/10 p-2 sm:p-3 rounded-lg">
+                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">Total de Questões</p>
-              <p className="text-3xl font-bold text-foreground">{totalQuestions}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Total</p>
+              <p className="text-2xl sm:text-3xl font-bold text-foreground">{totalQuestions}</p>
             </div>
           </div>
 
-          <div className="pt-6">
+          <div className="pt-4 sm:pt-6">
             <Button
               onClick={onRestart}
               size="lg"
-              className="gap-2 bg-gradient-to-r from-primary to-primary/80 text-lg px-8"
+              className="gap-2 bg-gradient-to-r from-primary to-primary/80 text-sm sm:text-base md:text-lg px-6 sm:px-8 w-full sm:w-auto"
             >
-              <RotateCcw className="w-5 h-5" />
+              <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
               Reiniciar Simulado
             </Button>
           </div>
 
-          <div className="pt-6 border-t border-border">
-            <p className="text-sm text-muted-foreground italic">
+          <div className="pt-4 sm:pt-6 border-t border-border px-2">
+            <p className="text-xs sm:text-sm text-muted-foreground italic">
               "Se esse simulado te ajudar, como me ajudou, compartilhe com outros profissionais. 
               Dividir o conhecimento é sinal de nobreza e maturidade."
             </p>

@@ -25,43 +25,47 @@ export const QuizNavigation = ({
   const hasAnswer = selectedAnswers.length > 0;
 
   return (
-    <div className="flex items-center justify-between gap-4 mt-8">
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4 md:mt-8">
       <Button
         variant="outline"
         onClick={onPrevious}
         disabled={isFirstQuestion}
-        className="gap-2"
+        className="gap-2 order-2 sm:order-1"
+        size="lg"
       >
         <ChevronLeft className="w-4 h-4" />
-        Anterior
+        <span className="sm:inline">Anterior</span>
       </Button>
 
-      <div className="flex gap-3">
+      <div className="flex gap-2 order-1 sm:order-2">
         {!showFeedback && (
           <Button
             onClick={onCheck}
             disabled={!hasAnswer}
-            className="gap-2 bg-gradient-to-r from-primary to-primary/80"
+            className="gap-2 bg-gradient-to-r from-primary to-primary/80 flex-1 sm:flex-initial text-sm sm:text-base"
+            size="lg"
           >
             <Check className="w-4 h-4" />
-            Verificar
+            <span>Verificar</span>
           </Button>
         )}
         {showFeedback && !isLastQuestion && (
           <Button
             onClick={onNext}
-            className="gap-2 bg-gradient-to-r from-primary to-primary/80"
+            className="gap-2 bg-gradient-to-r from-primary to-primary/80 flex-1 sm:flex-initial text-sm sm:text-base"
+            size="lg"
           >
-            Próxima
+            <span>Próxima</span>
             <ChevronRight className="w-4 h-4" />
           </Button>
         )}
         {showFeedback && isLastQuestion && (
           <Button
             onClick={onNext}
-            className="gap-2 bg-gradient-to-r from-success to-success/80"
+            className="gap-2 bg-gradient-to-r from-success to-success/80 flex-1 sm:flex-initial text-sm sm:text-base"
+            size="lg"
           >
-            Ver Resultado
+            <span>Ver Resultado</span>
             <Check className="w-4 h-4" />
           </Button>
         )}
