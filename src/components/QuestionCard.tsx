@@ -52,9 +52,7 @@ export const QuestionCard = ({
               <h2 className="text-sm sm:text-base md:text-lg font-semibold text-foreground leading-relaxed break-words">
                 {question.questionEn}
               </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed break-words">
-                {question.questionPt}
-              </p>
+          
               {question.multipleChoice && (
                 <p className="text-xs font-medium text-primary bg-primary/10 px-2 sm:px-3 py-1 rounded-full inline-block">
                   Escolha {question.correctAnswers.length} opções
