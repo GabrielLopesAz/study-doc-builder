@@ -4,19 +4,35 @@ import { QuizHeader } from "@/components/QuizHeader";
 import { QuestionCard } from "@/components/QuestionCard";
 import { QuizNavigation } from "@/components/QuizNavigation";
 import { QuizResults } from "@/components/QuizResults";
-import { allQuestions, Question, getRandomQuestions } from "@/data/questions";
+import { QuestionsList } from "@/components/QuestionsList";
+import { AddQuestionForm } from "@/components/AddQuestionForm";
+import { Question, getRandomQuestions, getAllQuestions, addCustomQuestion } from "@/data/questions";
 import { shuffleArray } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
+type ViewMode = "start" | "quiz" | "results" | "questionsList" | "addQuestion";
+
 const Index = () => {
-  const [quizStarted, setQuizStarted] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("start");
+  const [allAvailableQuestions, setAllAvailableQuestions] = useState<Question[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [showFeedback, setShowFeedback] = useState(false);
   const [score, setScore] = useState(0);
-  const [quizCompleted, setQuizCompleted] = useState(false);
   const { toast } = useToast();
+
+  // Carregar questões na inicialização
+  useEffect(() => {
+    setAllAvailableQuestions(getAllQuestions());
+  }, []);
+
+  // Recarregar questões quando voltar para o início
+  useEffect(() => {
+    if (viewMode === "start") {
+      setAllAvailableQuestions(getAllQuestions());
+    }
+  }, [viewMode]);
 
   // Função para embaralhar as opções de uma questão
   const shuffleQuestionOptions = (question: Question): Question => {
@@ -44,12 +60,28 @@ const Index = () => {
     const shuffledQuestions = selectedQuestions.map(q => shuffleQuestionOptions(q));
     
     setQuestions(shuffledQuestions);
-    setQuizStarted(true);
+    setViewMode("quiz");
     setCurrentQuestionIndex(0);
     setSelectedAnswers([]);
     setShowFeedback(false);
     setScore(0);
-    setQuizCompleted(false);
+  };
+
+  const handleViewQuestions = () => {
+    setViewMode("questionsList");
+  };
+
+  const handleAddQuestion = () => {
+    setViewMode("addQuestion");
+  };
+
+  const handleSaveQuestion = (question: Question) => {
+    addCustomQuestion(question);
+    setAllAvailableQuestions(getAllQuestions());
+  };
+
+  const handleBackToStart = () => {
+    setViewMode("start");
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -90,7 +122,7 @@ const Index = () => {
       setSelectedAnswers([]);
       setShowFeedback(false);
     } else {
-      setQuizCompleted(true);
+      setViewMode("results");
     }
   };
 
@@ -103,22 +135,49 @@ const Index = () => {
   };
 
   const handleRestart = () => {
-    setQuizStarted(false);
+    setViewMode("start");
     setQuestions([]);
     setCurrentQuestionIndex(0);
     setSelectedAnswers([]);
     setShowFeedback(false);
     setScore(0);
-    setQuizCompleted(false);
   };
 
+  // Tela de lista de questões
+  if (viewMode === "questionsList") {
+    return (
+      <QuestionsList
+        questions={allAvailableQuestions}
+        onBack={handleBackToStart}
+      />
+    );
+  }
+
+  // Tela de adicionar questão
+  if (viewMode === "addQuestion") {
+    return (
+      <AddQuestionForm
+        onBack={handleBackToStart}
+        onSave={handleSaveQuestion}
+        existingIds={allAvailableQuestions.map(q => q.id)}
+      />
+    );
+  }
+
   // Tela inicial de seleção
-  if (!quizStarted) {
-    return <QuizStart onStart={handleStart} />;
+  if (viewMode === "start") {
+    return (
+      <QuizStart
+        onStart={handleStart}
+        onViewQuestions={handleViewQuestions}
+        onAddQuestion={handleAddQuestion}
+        totalQuestions={allAvailableQuestions.length}
+      />
+    );
   }
 
   // Tela de resultados
-  if (quizCompleted) {
+  if (viewMode === "results") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-8 px-4">
         <QuizResults

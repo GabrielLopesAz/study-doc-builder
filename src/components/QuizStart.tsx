@@ -1,12 +1,15 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Play } from "lucide-react";
+import { BookOpen, Play, List, PlusCircle } from "lucide-react";
 
 interface QuizStartProps {
   onStart: (questionCount: number) => void;
+  onViewQuestions: () => void;
+  onAddQuestion: () => void;
+  totalQuestions: number;
 }
 
-export const QuizStart = ({ onStart }: QuizStartProps) => {
+export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuestions }: QuizStartProps) => {
   const questionOptions = [
     { count: 60, label: "60 Questões", description: "Simulado Rápido", time: "~45 min" },
     { count: 120, label: "120 Questões", description: "Simulado Padrão", time: "~90 min" },
@@ -35,6 +38,38 @@ export const QuizStart = ({ onStart }: QuizStartProps) => {
             "Se esse simulado te ajudar, como me ajudou, compartilhe com outros profissionais. 
             Dividir o conhecimento é sinal de nobreza e maturidade."
           </p>
+        </div>
+
+        {/* Botões de Ação */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <Button
+            onClick={onViewQuestions}
+            variant="outline"
+            className="gap-2 h-auto py-4"
+            size="lg"
+          >
+            <List className="w-5 h-5" />
+            <div className="text-left">
+              <div className="font-semibold">Ver Todas as Questões</div>
+              <div className="text-xs text-muted-foreground">
+                {totalQuestions} questões disponíveis
+              </div>
+            </div>
+          </Button>
+          <Button
+            onClick={onAddQuestion}
+            variant="outline"
+            className="gap-2 h-auto py-4"
+            size="lg"
+          >
+            <PlusCircle className="w-5 h-5" />
+            <div className="text-left">
+              <div className="font-semibold">Adicionar Nova Questão</div>
+              <div className="text-xs text-muted-foreground">
+                Expanda o banco de questões
+              </div>
+            </div>
+          </Button>
         </div>
 
         <Card className="p-8 shadow-[var(--shadow-card)] border-border">

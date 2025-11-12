@@ -1,3 +1,5 @@
+const STORAGE_KEY = "custom_questions";
+
 export interface Question {
   id: number;
   questionEn: string;
@@ -7,6 +9,39 @@ export interface Question {
   multipleChoice: boolean;
   originalOptions?: string[]; // Para manter as opções originais antes do embaralhamento
 }
+
+// Carregar questões customizadas do localStorage
+export const loadCustomQuestions = (): Question[] => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error("Erro ao carregar questões customizadas:", error);
+    return [];
+  }
+};
+
+// Salvar questões customizadas no localStorage
+export const saveCustomQuestions = (questions: Question[]): void => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
+  } catch (error) {
+    console.error("Erro ao salvar questões customizadas:", error);
+  }
+};
+
+// Adicionar nova questão customizada
+export const addCustomQuestion = (question: Question): void => {
+  const customQuestions = loadCustomQuestions();
+  customQuestions.push(question);
+  saveCustomQuestions(customQuestions);
+};
+
+// Obter todas as questões (base + customizadas)
+export const getAllQuestions = (): Question[] => {
+  const customQuestions = loadCustomQuestions();
+  return [...allQuestions, ...customQuestions];
+};
 
 export const allQuestions: Question[] = [
   {
@@ -815,6 +850,7 @@ export const allQuestions: Question[] = [
 
 // Função para pegar um subconjunto aleatório de questões
 export function getRandomQuestions(count: number): Question[] {
-  const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, allQuestions.length));
+  const allAvailable = getAllQuestions();
+  const shuffled = [...allAvailable].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, allAvailable.length));
 }
