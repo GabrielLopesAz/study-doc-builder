@@ -13,7 +13,7 @@ export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuesti
   const questionOptions = [
     { count: 60, label: "60 Questões", description: "Simulado Rápido", time: "~45 min" },
     { count: 120, label: "120 Questões", description: "Simulado Padrão", time: "~90 min" },
-    { count: 180, label: "180 Questões", description: "Simulado Completo", time: "~135 min" },
+    { count: 150, label: "150 Questões", description: "Simulado Completo", time: "~135 min" },
   ];
 
   return (
