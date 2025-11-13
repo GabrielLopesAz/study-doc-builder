@@ -200,6 +200,7 @@ const Index = () => {
         />
         
         <QuestionCard
+          key={currentQuestionIndex}
           question={currentQuestion}
           selectedAnswers={selectedAnswers}
           onAnswerChange={handleAnswerChange}
