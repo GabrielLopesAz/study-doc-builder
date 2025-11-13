@@ -54,9 +54,9 @@ const Index = () => {
     };
   };
 
-  const handleStart = (questionCount: number) => {
-    // Pega questões aleatórias e embaralha as opções de cada uma
-    const selectedQuestions = getRandomQuestions(questionCount);
+  const handleStart = (questionCount: number, sequential: boolean = false) => {
+    // Pega questões (aleatórias ou sequenciais) e embaralha as opções de cada uma
+    const selectedQuestions = getRandomQuestions(questionCount, sequential);
     const shuffledQuestions = selectedQuestions.map(q => shuffleQuestionOptions(q));
     
     setQuestions(shuffledQuestions);

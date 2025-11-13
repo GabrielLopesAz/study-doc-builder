@@ -1,20 +1,17 @@
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Play, List, PlusCircle } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookOpen, Plus, List, Shuffle, ListOrdered } from "lucide-react";
+import { useState } from "react";
 
 interface QuizStartProps {
-  onStart: (questionCount: number) => void;
+  onStart: (questionCount: number, sequential: boolean) => void;
   onViewQuestions: () => void;
   onAddQuestion: () => void;
   totalQuestions: number;
 }
 
 export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuestions }: QuizStartProps) => {
-  const questionOptions = [
-    { count: 60, label: "60 Questões", description: "Simulado Rápido", time: "~45 min" },
-    { count: 120, label: "120 Questões", description: "Simulado Padrão", time: "~90 min" },
-    { count: 150, label: "150 Questões", description: "Simulado Completo", time: "~135 min" },
-  ];
+  const [isSequential, setIsSequential] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 py-6 md:py-12 px-3 sm:px-4 md:px-6 flex items-center justify-center">
@@ -62,7 +59,7 @@ export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuesti
             className="gap-2 h-auto py-3 md:py-4"
             size="lg"
           >
-            <PlusCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
+            <Plus className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
             <div className="text-left">
               <div className="font-semibold text-sm md:text-base">Adicionar Nova Questão</div>
               <div className="text-xs text-muted-foreground">
@@ -73,89 +70,66 @@ export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuesti
         </div>
 
         <Card className="p-4 sm:p-6 md:p-8 shadow-[var(--shadow-card)] border-border">
-          <div className="space-y-4 md:space-y-6">
-            <div className="text-center space-y-2">
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                Escolha o Número de Questões
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground px-2">
-                Selecione quantas questões deseja responder neste simulado
-              </p>
+          <CardHeader className="text-center space-y-2 p-0 pb-4 md:pb-6">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-foreground">
+              Escolha o Modo e Número de Questões
+            </CardTitle>
+            <CardDescription className="text-sm md:text-base text-muted-foreground px-2">
+              Modo aleatório embaralha as questões. Modo sequencial mantém a ordem para memorização.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 sm:p-4 bg-secondary/30 rounded-lg">
+              <Button
+                onClick={() => setIsSequential(false)}
+                variant={!isSequential ? "default" : "outline"}
+                size="sm"
+                className="flex-1 gap-2 text-xs sm:text-sm"
+              >
+                <Shuffle className="w-4 h-4" />
+                Aleatório
+              </Button>
+              <Button
+                onClick={() => setIsSequential(true)}
+                variant={isSequential ? "default" : "outline"}
+                size="sm"
+                className="flex-1 gap-2 text-xs sm:text-sm"
+              >
+                <ListOrdered className="w-4 h-4" />
+                Sequencial
+              </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 pt-2 md:pt-4">
-              {questionOptions.map((option) => (
-                <Card
-                  key={option.count}
-                  className="p-4 md:p-6 border-2 hover:border-primary transition-all cursor-pointer group hover:shadow-lg active:scale-95"
-                  onClick={() => onStart(option.count)}
-                >
-                  <div className="space-y-3 md:space-y-4">
-                    <div className="text-center space-y-1 md:space-y-2">
-                      <div className="text-3xl md:text-4xl font-bold text-primary group-hover:scale-110 transition-transform">
-                        {option.count}
-                      </div>
-                      <div className="text-sm font-medium text-foreground">
-                        {option.label}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {option.description}
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <span>{option.time}</span>
-                    </div>
-                    <Button
-                      className="w-full gap-2 bg-gradient-to-r from-primary to-primary/80 text-sm md:text-base"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onStart(option.count);
-                      }}
-                    >
-                      <Play className="w-4 h-4" />
-                      Iniciar
-                    </Button>
-                  </div>
-                </Card>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              <Button
+                onClick={() => onStart(60, isSequential)}
+                size="lg"
+                className="h-auto py-4 sm:py-6 flex flex-col gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-sm sm:text-base"
+              >
+                <span className="text-2xl sm:text-3xl font-bold">60</span>
+                <span className="text-xs sm:text-sm opacity-90">Questões</span>
+              </Button>
+              
+              <Button
+                onClick={() => onStart(120, isSequential)}
+                size="lg"
+                className="h-auto py-4 sm:py-6 flex flex-col gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-sm sm:text-base"
+              >
+                <span className="text-2xl sm:text-3xl font-bold">120</span>
+                <span className="text-xs sm:text-sm opacity-90">Questões</span>
+              </Button>
+              
+              <Button
+                onClick={() => onStart(180, isSequential)}
+                size="lg"
+                className="h-auto py-4 sm:py-6 flex flex-col gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-sm sm:text-base"
+              >
+                <span className="text-2xl sm:text-3xl font-bold">180</span>
+                <span className="text-xs sm:text-sm opacity-90">Questões</span>
+              </Button>
             </div>
-
-            <div className="pt-4 md:pt-6 border-t border-border">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 text-center text-sm">
-                <div className="space-y-1">
-                  <div className="font-semibold text-foreground text-sm md:text-base">📝 Questões Embaralhadas</div>
-                  <div className="text-xs text-muted-foreground">
-                    Ordem das opções aleatória
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <div className="font-semibold text-foreground text-sm md:text-base">✓ Feedback Instantâneo</div>
-                  <div className="text-xs text-muted-foreground">
-                    Veja seus erros e acertos
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <div className="font-semibold text-foreground text-sm md:text-base">📊 Pontuação Final</div>
-                  <div className="text-xs text-muted-foreground">
-                    Acompanhe seu progresso
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </CardContent>
         </Card>
       </div>
     </div>

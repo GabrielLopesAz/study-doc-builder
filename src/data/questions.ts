@@ -2323,8 +2323,12 @@ export const allQuestions: Question[] = [
     "multipleChoice": false
   }
 ];
-// Função para pegar questões em sequência (não embaralha as questões, apenas as opções)
-export function getRandomQuestions(count: number): Question[] {
+// Função para pegar questões (aleatórias ou sequenciais)
+export function getRandomQuestions(count: number, sequential: boolean = false): Question[] {
   const allAvailable = getAllQuestions();
-  return allAvailable.slice(0, Math.min(count, allAvailable.length));
+  if (sequential) {
+    return allAvailable.slice(0, Math.min(count, allAvailable.length));
+  }
+  const shuffled = [...allAvailable].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, allAvailable.length));
 }
