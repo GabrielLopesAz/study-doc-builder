@@ -101,7 +101,7 @@ export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuesti
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               <Button
                 onClick={() => onStart(60, isSequential)}
                 size="lg"
@@ -112,11 +112,29 @@ export const QuizStart = ({ onStart, onViewQuestions, onAddQuestion, totalQuesti
               </Button>
               
               <Button
+                onClick={() => onStart(90, isSequential)}
+                size="lg"
+                className="h-auto py-4 sm:py-6 flex flex-col gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-sm sm:text-base"
+              >
+                <span className="text-2xl sm:text-3xl font-bold">90</span>
+                <span className="text-xs sm:text-sm opacity-90">Questões</span>
+              </Button>
+              
+              <Button
                 onClick={() => onStart(120, isSequential)}
                 size="lg"
                 className="h-auto py-4 sm:py-6 flex flex-col gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-sm sm:text-base"
               >
                 <span className="text-2xl sm:text-3xl font-bold">120</span>
+                <span className="text-xs sm:text-sm opacity-90">Questões</span>
+              </Button>
+              
+              <Button
+                onClick={() => onStart(150, isSequential)}
+                size="lg"
+                className="h-auto py-4 sm:py-6 flex flex-col gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-sm sm:text-base"
+              >
+                <span className="text-2xl sm:text-3xl font-bold">150</span>
                 <span className="text-xs sm:text-sm opacity-90">Questões</span>
               </Button>
               
