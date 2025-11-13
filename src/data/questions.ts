@@ -1104,7 +1104,7 @@ export const allQuestions: Question[] = [
       "Flows and Subflows"
     ],
     "correctAnswers": [0,3],
-    "multipleChoice": false
+    "multipleChoice": true
   },
   {
     "id": 73,
@@ -1131,7 +1131,7 @@ export const allQuestions: Question[] = [
       "Use the application navigator"
     ],
     "correctAnswers": [0,1],
-    "multipleChoice": false
+    "multipleChoice": true
   },
   {
     "id": 75,
@@ -2093,7 +2093,7 @@ export const allQuestions: Question[] = [
     "correctAnswers": [
       0,1
     ],
-    "multipleChoice": false
+    "multipleChoice": true
   },
   {
     "id": 137,
