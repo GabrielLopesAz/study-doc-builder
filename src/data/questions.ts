@@ -888,7 +888,7 @@ export const allQuestions: Question[] = [
       "Conflict with Maintenance Window"
     ],
     "correctAnswers": [0,3,4],
-    "multipleChoice": false
+    "multipleChoice": true
   },
   {
     "id": 58,
