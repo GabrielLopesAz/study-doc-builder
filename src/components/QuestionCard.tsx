@@ -96,7 +96,7 @@ export const QuestionCard = ({
             </div>
           ) : (
             <RadioGroup
-              value={selectedAnswers[0]?.toString()}
+              value={selectedAnswers[0]?.toString() ?? ""}
               onValueChange={(value) => handleSingleChoice(parseInt(value))}
               disabled={showFeedback}
             >

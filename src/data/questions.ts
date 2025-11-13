@@ -2323,9 +2323,8 @@ export const allQuestions: Question[] = [
     "multipleChoice": false
   }
 ];
-// Função para pegar um subconjunto aleatório de questões
+// Função para pegar questões em sequência (não embaralha as questões, apenas as opções)
 export function getRandomQuestions(count: number): Question[] {
   const allAvailable = getAllQuestions();
-  const shuffled = [...allAvailable].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, allAvailable.length));
+  return allAvailable.slice(0, Math.min(count, allAvailable.length));
 }
