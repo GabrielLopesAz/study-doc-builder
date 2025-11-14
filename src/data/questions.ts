@@ -2014,7 +2014,7 @@ export const allQuestions: Question[] = [
     "multipleChoice": false
   }, {
     "id": 132,
-    "questionEn": "Your Problem Manager has a structured problem management process, which includes a final review of the solution implemented and of the data regarding incident reduction. When a problem is resolved, after implementing a fix, they want the Post Fix Review task to be automatically created and assigned to the Problem assignee. What feature would you use to meet this requirement ?",
+    "questionEn": "Users with which role can Communicate a workaround or fix ? (Choose two.)",
     "questionPt": "Seu Gerenciador de Problemas tem um processo de gerenciamento de problemas estruturado, que inclui uma revisão final da solução implementada e dos dados sobre a redução de incidentes. Quando um problema é resolvido, após a implementação de uma correção, eles desejam que a tarefa de Revisão Pós-Correção seja criada automaticamente e atribuída ao responsável pelo Problema. Que recurso você usaria para atender a essa necessidade?",
     "options": [
     
