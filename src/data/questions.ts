@@ -1378,7 +1378,7 @@ export const allQuestions: Question[] = [
       "There is no Closed state. Problem records are moved to the Completed",
       "It is good practice to monitor fixes implemented, to ensure the underlying issues are resolved, before closing a problem record"
     ],
-    "correctAnswers": [4],
+    "correctAnswers": [3],
     "multipleChoice": false
   },
   {
