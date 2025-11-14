@@ -2186,9 +2186,9 @@ export const allQuestions: Question[] = [
       "IT Service Management - Typical Challenges and Remediation"
     ],
     "correctAnswers": [
-      1
+      0,1
     ],
-    "multipleChoice": false
+    "multipleChoice": true
   },
   {
     "id": 143,
