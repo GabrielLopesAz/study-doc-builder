@@ -2284,10 +2284,10 @@ export const allQuestions: Question[] = [
       "work notes",
      
     ],
-    "correctAnswers": [
-      0
+      "correctAnswers": [
+      0,1
     ],
-    "multipleChoice": false
+    "multipleChoice": true
   },
   {
     "id": 149,
